@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C474B9ED2CA558B50012E70C /* TextControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9EC2CA558B50012E70C /* TextControl.swift */; };
+		C474B9EF2CA5605C0012E70C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9EE2CA5605C0012E70C /* SettingsView.swift */; };
 		C4BD1AF52CA53D9B00FD93AA /* RewriteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD1AF42CA53D9B00FD93AA /* RewriteApp.swift */; };
 		C4BD1AF92CA53D9E00FD93AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BD1AF82CA53D9E00FD93AA /* Assets.xcassets */; };
 		C4BD1AFC2CA53D9E00FD93AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BD1AFB2CA53D9E00FD93AA /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C474B9EC2CA558B50012E70C /* TextControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextControl.swift; sourceTree = "<group>"; };
+		C474B9EE2CA5605C0012E70C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C4BD1AF12CA53D9B00FD93AA /* Rewrite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rewrite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BD1AF42CA53D9B00FD93AA /* RewriteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewriteApp.swift; sourceTree = "<group>"; };
 		C4BD1AF82CA53D9E00FD93AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +55,8 @@
 			isa = PBXGroup;
 			children = (
 				C4BD1AF42CA53D9B00FD93AA /* RewriteApp.swift */,
+				C474B9EE2CA5605C0012E70C /* SettingsView.swift */,
+				C474B9EC2CA558B50012E70C /* TextControl.swift */,
 				C4BD1AF82CA53D9E00FD93AA /* Assets.xcassets */,
 				C4BD1AFD2CA53D9E00FD93AA /* Rewrite.entitlements */,
 				C4BD1AFA2CA53D9E00FD93AA /* Preview Content */,
@@ -136,6 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C474B9EF2CA5605C0012E70C /* SettingsView.swift in Sources */,
+				C474B9ED2CA558B50012E70C /* TextControl.swift in Sources */,
 				C4BD1AF52CA53D9B00FD93AA /* RewriteApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
