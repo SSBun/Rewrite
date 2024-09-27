@@ -34,9 +34,15 @@ struct SettingsView: View {
 
 struct GeneralSettingsView: View {
     @AppStorage("fixGrammerPrompt") var fixGrammerPrompt: String = DefaultConfiguration.fixGrammerPrompt
+    @AppStorage("fixGrammar_shortcut") var fixGrammarShortcut: String = ShortcutManager.Shortcut(key: "3", modifier: .control).toJSON()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Text("Keyboard Shortcut:")
+                    .fontWeight(.medium)
+                KeyboardShortcutRecorder(shortcut: $fixGrammarShortcut)
+            }
             Text("Fix Grammer Prompt")
                 .fontWeight(.medium)
             TextEditor(text: $fixGrammerPrompt)
@@ -52,8 +58,9 @@ struct GeneralSettingsView: View {
 // MARK: - ModelsSettingsView
 
 struct ModelsSettingsView: View {
-    @AppStorage("openAIBassURL") var openAIBassURL: String = ""
+    @AppStorage("openAIBassURL") var openAIBassURL: String = DefaultConfiguration.openAIBaseURL
     @AppStorage("openAIToken") var openAIToken: String = ""
+    @State var testResult: String = "No test"
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -69,8 +76,18 @@ struct ModelsSettingsView: View {
                 .textContentType(.password)
                 .autocorrectionDisabled()
                 .textContentType(.password) // Ensure the text is obscured
-            Button("Test") {
-                
+            HStack {
+                Button("Test") {
+                    Task {
+                        do {
+                            _ = try await TextProcessor.shared.requestCompletion("hello", system: "Your are an AI assistant.")
+                            self.testResult = "success"
+                        } catch {
+                            self.testResult = "failed"
+                        }
+                    }
+                }
+                Text(testResult)
             }
             .padding(.top)
             .buttonStyle(.borderedProminent)
@@ -86,7 +103,8 @@ struct ModelsSettingsView: View {
 // MARK: - DefaultConfiguration
 
 struct DefaultConfiguration {
-    static let fixGrammerPrompt = 
+    static let openAIBaseURL = "api.openai.com"
+    static let fixGrammerPrompt =
 """
 Act like you are an expert grammar checker. Look for mistakes and make sentences more fluent.
 

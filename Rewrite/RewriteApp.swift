@@ -7,32 +7,52 @@ import SwiftUI
 struct MenuBarApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
+    @AppStorage("fixGrammar_shortcut") var fixGrammarShortcut: String = ShortcutManager.Shortcut(key: "3", modifier: .control).toJSON()
+    
     var body: some Scene {
         MenuBarExtra("Menu Bar App", systemImage: "square.and.pencil") {
-            Button("Item 1") {
-                // Handle Item 1 action
+            Button("Fix Grammar") {
+                Task {
+                    await fixGrammar()
+                }
             }
-            Button("Item 2") {
-                // Handle Item 2 action
-            }
-            Button("Item 3") {
-                // Handle Item 3 action
+            .if(fixGrammarShortcut, map: { ShortcutManager.Shortcut.fromJSON($0) }) { (view, shortcut: ShortcutManager.Shortcut)  in
+                view.keyboardShortcut(.init(from: shortcut))
             }
             Divider()
-            Button("Exit") {
-                NSApplication.shared.terminate(self)
-            }
             SettingsLink(label: {
                 Text("Preferences")
             })
+            Button("Exit") {
+                NSApplication.shared.terminate(self)
+            }
+            Divider()
+            // show version info
+            Text("Version: 0.1 alpha")
         }
         .menuBarExtraStyle(.menu)
+        .defaultSize(width: 100, height: 100)
         
         Settings {
             SettingsView()
         }
     }
+    
+    private func fixGrammar() async {
+        guard let selectedText = TextControl.getSelectedTextFromScreen() else {
+            return
+        }
+        
+        do {
+            let fixGrammarPrompt = UserDefaults.standard.string(forKey: "fixGrammerPrompt") ?? ""
+            let result = try await TextProcessor.shared.requestCompletion(selectedText, system: fixGrammarPrompt)
+            TextControl.replaceSelectedTextOnScreen(with: result)
+        } catch {
+            print("Error fixing grammar: \(error)")
+        }
+    }
 }
+
 
 // MARK: - AppDelegate
 
@@ -59,3 +79,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
+extension View {
+    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
+    }
+    
+    @ViewBuilder func `if`<S, T, Content: View>(_ state: S, map: (S) -> T?, transform: (Self, T) -> Content) -> some View {
+        if let state = map(state) {
+            transform(self, state)
+        } else {
+            self
+        }
+    }
+}

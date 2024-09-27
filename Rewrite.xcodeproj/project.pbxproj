@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		C474B9ED2CA558B50012E70C /* TextControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9EC2CA558B50012E70C /* TextControl.swift */; };
 		C474B9EF2CA5605C0012E70C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9EE2CA5605C0012E70C /* SettingsView.swift */; };
+		C474B9F22CA56F2F0012E70C /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = C474B9F12CA56F2F0012E70C /* OpenAI */; };
+		C474B9F42CA5708E0012E70C /* TextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9F32CA5708E0012E70C /* TextProcessor.swift */; };
+		C474B9F72CA57EDE0012E70C /* KeyboardShortcutRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9F62CA57EDE0012E70C /* KeyboardShortcutRecorder.swift */; };
+		C474B9F92CA64AEA0012E70C /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9F82CA64AEA0012E70C /* ShortcutManager.swift */; };
 		C4BD1AF52CA53D9B00FD93AA /* RewriteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD1AF42CA53D9B00FD93AA /* RewriteApp.swift */; };
 		C4BD1AF92CA53D9E00FD93AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BD1AF82CA53D9E00FD93AA /* Assets.xcassets */; };
 		C4BD1AFC2CA53D9E00FD93AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BD1AFB2CA53D9E00FD93AA /* Preview Assets.xcassets */; };
@@ -17,6 +21,10 @@
 /* Begin PBXFileReference section */
 		C474B9EC2CA558B50012E70C /* TextControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextControl.swift; sourceTree = "<group>"; };
 		C474B9EE2CA5605C0012E70C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C474B9F32CA5708E0012E70C /* TextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessor.swift; sourceTree = "<group>"; };
+		C474B9F52CA579040012E70C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C474B9F62CA57EDE0012E70C /* KeyboardShortcutRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcutRecorder.swift; sourceTree = "<group>"; };
+		C474B9F82CA64AEA0012E70C /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
 		C4BD1AF12CA53D9B00FD93AA /* Rewrite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rewrite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BD1AF42CA53D9B00FD93AA /* RewriteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewriteApp.swift; sourceTree = "<group>"; };
 		C4BD1AF82CA53D9E00FD93AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -29,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C474B9F22CA56F2F0012E70C /* OpenAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,9 +63,13 @@
 		C4BD1AF32CA53D9B00FD93AA /* Rewrite */ = {
 			isa = PBXGroup;
 			children = (
+				C474B9F52CA579040012E70C /* Info.plist */,
 				C4BD1AF42CA53D9B00FD93AA /* RewriteApp.swift */,
 				C474B9EE2CA5605C0012E70C /* SettingsView.swift */,
+				C474B9F82CA64AEA0012E70C /* ShortcutManager.swift */,
+				C474B9F62CA57EDE0012E70C /* KeyboardShortcutRecorder.swift */,
 				C474B9EC2CA558B50012E70C /* TextControl.swift */,
+				C474B9F32CA5708E0012E70C /* TextProcessor.swift */,
 				C4BD1AF82CA53D9E00FD93AA /* Assets.xcassets */,
 				C4BD1AFD2CA53D9E00FD93AA /* Rewrite.entitlements */,
 				C4BD1AFA2CA53D9E00FD93AA /* Preview Content */,
@@ -88,6 +101,9 @@
 			dependencies = (
 			);
 			name = Rewrite;
+			packageProductDependencies = (
+				C474B9F12CA56F2F0012E70C /* OpenAI */,
+			);
 			productName = Rewrite;
 			productReference = C4BD1AF12CA53D9B00FD93AA /* Rewrite.app */;
 			productType = "com.apple.product-type.application";
@@ -116,6 +132,9 @@
 				Base,
 			);
 			mainGroup = C4BD1AE82CA53D9B00FD93AA;
+			packageReferences = (
+				C474B9F02CA56F2F0012E70C /* XCRemoteSwiftPackageReference "OpenAI" */,
+			);
 			productRefGroup = C4BD1AF22CA53D9B00FD93AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -142,9 +161,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C474B9F72CA57EDE0012E70C /* KeyboardShortcutRecorder.swift in Sources */,
+				C474B9F92CA64AEA0012E70C /* ShortcutManager.swift in Sources */,
 				C474B9EF2CA5605C0012E70C /* SettingsView.swift in Sources */,
 				C474B9ED2CA558B50012E70C /* TextControl.swift in Sources */,
 				C4BD1AF52CA53D9B00FD93AA /* RewriteApp.swift in Sources */,
+				C474B9F42CA5708E0012E70C /* TextProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +305,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rewrite/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -310,6 +333,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rewrite/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -345,6 +369,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C474B9F02CA56F2F0012E70C /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C474B9F12CA56F2F0012E70C /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C474B9F02CA56F2F0012E70C /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C4BD1AE92CA53D9B00FD93AA /* Project object */;
 }
