@@ -13,6 +13,7 @@
 		C474B9F42CA5708E0012E70C /* TextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9F32CA5708E0012E70C /* TextProcessor.swift */; };
 		C474B9F72CA57EDE0012E70C /* KeyboardShortcutRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9F62CA57EDE0012E70C /* KeyboardShortcutRecorder.swift */; };
 		C474B9F92CA64AEA0012E70C /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9F82CA64AEA0012E70C /* ShortcutManager.swift */; };
+		C474B9FB2CA665B50012E70C /* KeySimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B9FA2CA665B50012E70C /* KeySimulator.swift */; };
 		C4BD1AF52CA53D9B00FD93AA /* RewriteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD1AF42CA53D9B00FD93AA /* RewriteApp.swift */; };
 		C4BD1AF92CA53D9E00FD93AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BD1AF82CA53D9E00FD93AA /* Assets.xcassets */; };
 		C4BD1AFC2CA53D9E00FD93AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BD1AFB2CA53D9E00FD93AA /* Preview Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		C474B9F52CA579040012E70C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C474B9F62CA57EDE0012E70C /* KeyboardShortcutRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcutRecorder.swift; sourceTree = "<group>"; };
 		C474B9F82CA64AEA0012E70C /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
+		C474B9FA2CA665B50012E70C /* KeySimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySimulator.swift; sourceTree = "<group>"; };
 		C4BD1AF12CA53D9B00FD93AA /* Rewrite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rewrite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BD1AF42CA53D9B00FD93AA /* RewriteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewriteApp.swift; sourceTree = "<group>"; };
 		C4BD1AF82CA53D9E00FD93AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				C474B9F82CA64AEA0012E70C /* ShortcutManager.swift */,
 				C474B9F62CA57EDE0012E70C /* KeyboardShortcutRecorder.swift */,
 				C474B9EC2CA558B50012E70C /* TextControl.swift */,
+				C474B9FA2CA665B50012E70C /* KeySimulator.swift */,
 				C474B9F32CA5708E0012E70C /* TextProcessor.swift */,
 				C4BD1AF82CA53D9E00FD93AA /* Assets.xcassets */,
 				C4BD1AFD2CA53D9E00FD93AA /* Rewrite.entitlements */,
@@ -161,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C474B9FB2CA665B50012E70C /* KeySimulator.swift in Sources */,
 				C474B9F72CA57EDE0012E70C /* KeyboardShortcutRecorder.swift in Sources */,
 				C474B9F92CA64AEA0012E70C /* ShortcutManager.swift in Sources */,
 				C474B9EF2CA5605C0012E70C /* SettingsView.swift in Sources */,

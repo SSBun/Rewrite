@@ -9,15 +9,52 @@ import Foundation
 import Cocoa
 
 class TextControl {
-    static func getSelectedTextFromScreen() -> String? {
-        // Use accessibility APIs to get the selected text
-        let systemWideElement = AXUIElementCreateSystemWide()
+    
+    private static func getSelectedTextByPasteBoard() async throws -> String? {
+        KeySimulator.press(key: "c", with: [.command])
+        // Wait a moment for the clipboard to update
+        let result = await Task {
+            try? await Task.sleep(nanoseconds: 100_000_000)
+            if let copiedText = NSPasteboard.general.string(forType: .string) {
+                return copiedText
+            } else {
+                return ""
+            }
+        }.result
+        
+        return try result.get()
+    }
+    
+    private static func replaceSelectedTextByPasteBoard(with text: String) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
+        KeySimulator.press(key: "v", with: [.command])
+    }
+    
+    static func getSelectedTextFromScreen() async -> String? {
+//        let runningApps = NSWorkspace.shared.runningApplications
         var focusedElement: AnyObject?
-        let result = AXUIElementCopyAttributeValue(systemWideElement, kAXFocusedUIElementAttribute as CFString, &focusedElement)
+        var result: AXError = .failure
+//        if let chromeApp = runningApps.first(where: { $0.bundleIdentifier == "com.google.Chrome" }) {
+//            let pid = chromeApp.processIdentifier
+//            let appElement = AXUIElementCreateApplication(pid)
+//            
+//            result = AXUIElementCopyAttributeValue(appElement, kAXFocusedUIElementAttribute as CFString, &focusedElement)
+//            if result != .success {
+//                focusedElement = nil
+//            }
+//        }
+       
+        if result == .failure {
+            // Use accessibility APIs to get the selected text
+            let systemWideElement = AXUIElementCreateSystemWide()
+            result = AXUIElementCopyAttributeValue(systemWideElement, kAXFocusedUIElementAttribute as CFString, &focusedElement)
+        }
         
         if result != .success {
-            print("Error getting focused element: \(result.rawValue)")
-            return nil
+            print("Error getting focused element: \(result.rawValue), using pasteboard method")
+//            return nil
+            return try? await getSelectedTextByPasteBoard()
         }
         
         guard let element = focusedElement else {
@@ -37,13 +74,27 @@ class TextControl {
     }
 
     static func replaceSelectedTextOnScreen(with text: String) {
-        // Use accessibility APIs to replace the selected text
-        let systemWideElement = AXUIElementCreateSystemWide()
+//        let runningApps = NSWorkspace.shared.runningApplications
         var focusedElement: AnyObject?
-        let result = AXUIElementCopyAttributeValue(systemWideElement, kAXFocusedUIElementAttribute as CFString, &focusedElement)
+        var result: AXError = .failure
+//        if let chromeApp = runningApps.first(where: { $0.bundleIdentifier == "com.google.Chrome" }) {
+//            let pid = chromeApp.processIdentifier
+//            let appElement = AXUIElementCreateApplication(pid)
+//            
+//            result = AXUIElementCopyAttributeValue(appElement, kAXFocusedUIElementAttribute as CFString, &focusedElement)
+//            if result != .success {
+//                focusedElement = nil
+//            }
+//        }
+       
+        if result == .failure {
+            // Use accessibility APIs to get the selected text
+            let systemWideElement = AXUIElementCreateSystemWide()
+            result = AXUIElementCopyAttributeValue(systemWideElement, kAXFocusedUIElementAttribute as CFString, &focusedElement)
+        }
         
         if result != .success {
-            print("Error getting focused element: \(result.rawValue)")
+            replaceSelectedTextByPasteBoard(with: text)
             return
         }
         

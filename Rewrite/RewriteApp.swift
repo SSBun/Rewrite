@@ -39,7 +39,7 @@ struct MenuBarApp: App {
     }
     
     private func fixGrammar() async {
-        guard let selectedText = TextControl.getSelectedTextFromScreen() else {
+        guard let selectedText = await TextControl.getSelectedTextFromScreen() else {
             return
         }
         
