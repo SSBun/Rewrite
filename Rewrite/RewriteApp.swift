@@ -1,5 +1,6 @@
 import Cocoa
 import SwiftUI
+import UserNotifications
 
 // MARK: - MenuBarApp
 
@@ -39,7 +40,8 @@ struct MenuBarApp: App {
     }
     
     private func fixGrammar() async {
-        guard let selectedText = await TextControl.getSelectedTextFromScreen() else {
+        guard let selectedText = await TextControl.getSelectedTextFromScreen(), selectedText.count > 0 else {
+            showSideNotification(error: "Nothing selected")
             return
         }
         
@@ -47,10 +49,33 @@ struct MenuBarApp: App {
             let fixGrammarPrompt = UserDefaults.standard.string(forKey: "fixGrammerPrompt") ?? ""
             let result = try await TextProcessor.shared.requestCompletion(selectedText, system: fixGrammarPrompt)
             TextControl.replaceSelectedTextOnScreen(with: result)
+            showSideNotification(error: nil)
         } catch {
-            print("Error fixing grammar: \(error)")
+            showSideNotification(error: error)
         }
     }
+    
+    private func showSideNotification(error: Error?) {
+        let content = UNMutableNotificationContent()
+        if let error = error {
+            content.title = "Error"
+            content.body = error.localizedDescription
+        } else {
+            content.title = "Success"
+            content.body = "Grammar fixed"
+        }
+
+        let request = UNNotificationRequest(
+            identifier: UUID().uuidString,
+            content: content,
+            trigger: nil
+        )
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Failed to add notification: \(error.localizedDescription)")
+            }
+        }    }
 }
 
 

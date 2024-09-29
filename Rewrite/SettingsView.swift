@@ -26,7 +26,7 @@ struct SettingsView: View {
                 }
         }
         .tabViewStyle(DefaultTabViewStyle())
-        .frame(width: 600, height: 200)
+        .frame(width: 600, height: 280)
     }
 }
 
@@ -60,6 +60,7 @@ struct GeneralSettingsView: View {
 struct ModelsSettingsView: View {
     @AppStorage("openAIBassURL") var openAIBassURL: String = DefaultConfiguration.openAIBaseURL
     @AppStorage("openAIToken") var openAIToken: String = ""
+    @AppStorage("openAIModel") var openAIModel: String = DefaultConfiguration.openAIModel
     @State var testResult: String = "No test"
     
     var body: some View {
@@ -76,20 +77,25 @@ struct ModelsSettingsView: View {
                 .textContentType(.password)
                 .autocorrectionDisabled()
                 .textContentType(.password) // Ensure the text is obscured
+                .padding(.bottom, 10)
+            Text("OpenAI Model")
+                .fontWeight(.medium)
+            TextField("OpenAI Model", text: $openAIModel)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.bottom, 10)
             HStack {
                 Button("Test") {
                     Task {
                         do {
                             _ = try await TextProcessor.shared.requestCompletion("hello", system: "Your are an AI assistant.")
-                            self.testResult = "success"
+                            self.testResult = "\(openAIModel): success"
                         } catch {
-                            self.testResult = "failed"
+                            self.testResult = "\(openAIModel): failed"
                         }
                     }
                 }
                 Text(testResult)
             }
-            .padding(.top)
             .buttonStyle(.borderedProminent)
         }
         .padding(20)
@@ -104,6 +110,7 @@ struct ModelsSettingsView: View {
 
 struct DefaultConfiguration {
     static let openAIBaseURL = "api.openai.com"
+    static let openAIModel = "gpt-4o-mini"
     static let fixGrammerPrompt =
 """
 Act like you are an expert grammar checker. Look for mistakes and make sentences more fluent.
